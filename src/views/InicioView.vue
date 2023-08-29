@@ -7,7 +7,7 @@ const store = useBebidasStore();
 <template>
   <h1 class="text-6xl font-extrabold">Recetas</h1>
   <p v-if="store.noRecetas" class="my-10 text-center text-3xl">
-    No hay Recetas
+    No hay Recetas, Buscar con ayuda del formulario!
   </p>
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 my-10 gap-10">
     <Receta
