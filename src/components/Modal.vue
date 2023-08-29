@@ -8,8 +8,10 @@ import {
 } from "@headlessui/vue";
 import { useModalStore } from "../stores/modal";
 import { useBebidasStore } from "../stores/bebidas";
+import { useFavoritosStore } from "../stores/favoritos";
 const storeModal = useModalStore();
 const storeBebida = useBebidasStore();
+const storeFavoritos = useFavoritosStore();
 const formatearIngredientes = () => {
   const ingredientesDiv = document.createElement("div");
   for (let i = 1; i < 16; i++) {
@@ -101,6 +103,13 @@ const formatearIngredientes = () => {
                   @click="storeModal.handleClickModal()"
                 >
                   Cerrar
+                </button>
+                <button
+                  type="button"
+                  class="w-full rounded bg-orange-600 p-3 font-bold uppercase text-white shadow hover:bg-orange-500 text-lg"
+                  @click="storeFavoritos.handleClickFavorito()"
+                >
+                  Agregar a Favoritos
                 </button>
               </div>
             </DialogPanel>
