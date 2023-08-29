@@ -10,6 +10,20 @@ import { useModalStore } from "../stores/modal";
 import { useBebidasStore } from "../stores/bebidas";
 const storeModal = useModalStore();
 const storeBebida = useBebidasStore();
+const formatearIngredientes = () => {
+  const ingredientesDiv = document.createElement("div");
+  for (let i = 1; i < 16; i++) {
+    if (storeBebida.receta[`strIngredient${i}`]) {
+      const ingrediente = storeBebida.receta[`strIngredient${i}`];
+      const cantidad = storeBebida.receta[`strMeasure${i}`];
+      const ingredienteCantidad = document.createElement("p");
+      ingredienteCantidad.classList.add("text-lg", "text-gray-700");
+      ingredienteCantidad.textContent = `${ingrediente} - ${cantidad}`;
+      ingredientesDiv.appendChild(ingredienteCantidad);
+    }
+  }
+  return ingredientesDiv;
+};
 </script>
 
 <template>
@@ -59,7 +73,25 @@ const storeBebida = useBebidasStore();
                   <img
                     :src="storeBebida.receta.strDrinkThumb"
                     :alt="storeBebida.receta.strDrink"
+                    class="mx-auto w-96 h-96 rounded-md shadow-md"
                   />
+                  <DialogTitle
+                    as="h3"
+                    class="text-4xl font-extrabold leading-6 text-gray-900 my-5"
+                  >
+                    Ingredientes y Cantidades
+                  </DialogTitle>
+                  <!-- v-html - permite renderizar codigo html -->
+                  <div v-html="formatearIngredientes().outerHTML"></div>
+                  <DialogTitle
+                    as="h3"
+                    class="text-4xl font-extrabold leading-6 text-gray-900 my-5"
+                  >
+                    Instrucciones
+                  </DialogTitle>
+                  <p class="text-lg text-gray-700 my-5">
+                    {{ storeBebida.receta.strInstructions }}
+                  </p>
                 </div>
               </div>
               <div class="mt-5 sm:mt-6 flex justify-between gap-4">
