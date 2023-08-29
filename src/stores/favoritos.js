@@ -22,12 +22,25 @@ export const useFavoritosStore = defineStore("favoritos", () => {
     localStorage.setItem("favoritos", JSON.stringify(favoritos.value));
   };
 
+  const existeFavorito = (id) => {
+    const favoritosLocalStorage =
+      JSON.parse(localStorage.getItem("favoritos")) ?? [];
+    return favoritosLocalStorage.some((bebida) => bebida.idDrink === id);
+  };
+
   const handleClickFavorito = () => {
-    favoritos.value.push(storeBebidas.receta);
+    if (existeFavorito(storeBebidas.receta.idDrink)) {
+      favoritos.value = favoritos.value.filter(
+        (bebida) => bebida.idDrink !== storeBebidas.receta.idDrink
+      );
+    } else {
+      favoritos.value.push(storeBebidas.receta);
+    }
   };
 
   return {
     favoritos,
+    existeFavorito,
     handleClickFavorito,
   };
 });
